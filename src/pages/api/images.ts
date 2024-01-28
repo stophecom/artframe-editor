@@ -18,8 +18,8 @@ export const config = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
   const image = await req.body;
 
-  const temporaryDirectory = path.join(__dirname, 'tmp');
-  // const temporaryDirectory = '/tmp';
+  // const temporaryDirectory = path.join(__dirname, 'tmp');
+  const temporaryDirectory = '/tmp';
 
   // On Vercel we can create a temporary folder to store images.
   // Should be replaced with an object storage solution. E.g. AWS S3

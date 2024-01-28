@@ -8,8 +8,8 @@ import sharp from 'sharp';
 type ResponseData = Buffer; // We send compressed image data
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  const temporaryDirectory = path.join(__dirname, 'tmp');
-  // const temporaryDirectory = '/tmp';
+  // const temporaryDirectory = path.join(__dirname, 'tmp');
+  const temporaryDirectory = '/tmp';
 
   console.log('read temp folder', temporaryDirectory);
 
