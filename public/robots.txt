@@ -1,0 +1,4 @@
+Sitemap: https://artframe.stophe.com/sitemap.xml
+
+User-agent: *
+Allow: /
