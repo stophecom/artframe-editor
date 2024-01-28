@@ -16,6 +16,9 @@ const metadata = {
     themeColor: '#FFFFFF',
     version: packageJson.version,
   },
+  links: {
+    github: 'https://github.com/stophecom/artframe-editor',
+  },
 };
 
 export default metadata;

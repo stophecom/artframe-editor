@@ -41,7 +41,7 @@ interface Props {
   initialTab?: MenuTabId;
 }
 
-export default function MenuTabs({ closeModal, initialTab = menuTabsDefinition[0].id }: Props) {
+export default function MenuTabs({ initialTab = menuTabsDefinition[0].id }: Props) {
   const setActiveObjectId = useActiveObjectId((state) => state.setActiveObjectId);
 
   const gteMedium = useMediaQuery(theme.medias.gteMedium.replace('@media ', ''));
@@ -65,7 +65,7 @@ export default function MenuTabs({ closeModal, initialTab = menuTabsDefinition[0
         </Tabs.List>
         <Tabs.Panel value="canvas">
           <PanelContentDiv>
-            <MenuTabCanvas closeModal={closeModal} />
+            <MenuTabCanvas />
           </PanelContentDiv>
         </Tabs.Panel>
         <Tabs.Panel value="layers">
