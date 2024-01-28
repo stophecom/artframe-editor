@@ -1,6 +1,10 @@
 # ArtFrame Editor
 
-A simple canvas drawing web application with responsive UI. Built using [TypeScript](https://typescriptlang.org), [React](https://react.dev), and [Next.js](https://nextjs.org).
+Simple editor designed to work together with [Framelabs](https://framelabs.eu/) ArtFrames e-paper displays. Create and manage images to be displayed on your digital art frames.
+
+This project is heavily based on [Flatdraw](https://github.com/diogocapela/flatdraw) - A simple canvas drawing web application with responsive UI.
+
+Built using [TypeScript](https://typescriptlang.org), [React](https://react.dev), and [Next.js](https://nextjs.org).
 
 **Live demo:** [artframe.stophe.com](https://artframe.stophe.com)
 
@@ -13,13 +17,13 @@ A simple canvas drawing web application with responsive UI. Built using [TypeScr
 Install all the dependencies.
 
 ```bash
-npm install
+pnpm install
 ```
 
 Run the development server.
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
