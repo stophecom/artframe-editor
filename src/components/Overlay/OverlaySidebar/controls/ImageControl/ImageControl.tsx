@@ -6,6 +6,7 @@ import { FaPlus, FaUpload } from 'react-icons/fa';
 import styled from 'styled-components';
 
 import ControlHeader from '~/components/Overlay/OverlaySidebar/components/ControlHeader';
+import type { ObjectDimensions } from '~/config/types';
 import useCanvasContext from '~/context/useCanvasContext';
 import useActiveObjectId from '~/store/useActiveObjectId';
 import useCanvasObjects from '~/store/useCanvasObjects';
@@ -16,7 +17,11 @@ import getDimensionsFromImage from '~/utils/getDimensionsFromImage';
 import getImageElementFromUrl from '~/utils/getImageElementFromUrl';
 import notification from '~/utils/notification';
 
-import { type OptionItem } from './UnsplashImageButton';
+export interface OptionItem {
+  imageUrl: string;
+  imageElement: HTMLImageElement;
+  dimensions: ObjectDimensions;
+}
 
 const ImageUrlForm = styled.form`
   display: grid;
