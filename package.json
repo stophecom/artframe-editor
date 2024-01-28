@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "author": "Christophe Schwyzer",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "clean": "rm -rf dist && rm -rf out && rm -rf node_modules",
     "postinstall": "node -r esm scripts/postinstall.ts",
