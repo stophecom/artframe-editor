@@ -15,7 +15,7 @@ import { H4 } from '../commonTabComponents';
 const DownloadButtonsGridDiv = styled.div`
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-gap: 0.5rem;
+  grid-gap: 0.25rem;
   margin-bottom: 1rem;
 `;
 
@@ -30,14 +30,6 @@ export default function MenuTabDownload() {
   const downloadCanvas = async (type: 'png' | 'jpg') => {
     const canvas = document.getElementById(CANVAS_PREVIEW_UNIQUE_ID) as HTMLCanvasElement;
     const image = canvas.toDataURL();
-
-    // Send image to API
-    const response = await fetch('/api/images', {
-      method: 'POST',
-      body: JSON.stringify(image),
-    });
-
-    console.log(response);
 
     const a = document.createElement('a');
     a.download = `${generateUniqueId()}.${type}`;
