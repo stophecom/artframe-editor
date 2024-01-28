@@ -8,9 +8,20 @@ import sharp from 'sharp';
 type ResponseData = Buffer; // We send compressed image data
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  const filePath = path.resolve('.', `image.png`);
+  const temporaryDirectory = path.join(__dirname, 'tmp');
+  // const temporaryDirectory = '/tmp';
 
-  const imageBuffer = fs.readFileSync(filePath);
+  console.log('read temp folder', temporaryDirectory);
+
+  if (!fs.existsSync(temporaryDirectory)) {
+    throw Error('No tmp folder found.');
+  }
+  const files = fs.readdirSync(temporaryDirectory);
+
+  // Select first file
+  const filePath = files[0];
+
+  const imageBuffer = fs.readFileSync(path.join(temporaryDirectory, filePath));
   const sharpImage = sharp(imageBuffer);
 
   // Timeout to next image
