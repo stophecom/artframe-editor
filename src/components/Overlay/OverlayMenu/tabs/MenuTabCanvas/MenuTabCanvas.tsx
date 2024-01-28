@@ -1,13 +1,11 @@
-import { Button, Checkbox, NumberInput, Select } from '@mantine/core';
+import { NumberInput, Select } from '@mantine/core';
 import React from 'react';
 import { RxHeight, RxWidth } from 'react-icons/rx';
-import { TbTrashX } from 'react-icons/tb';
 import styled from 'styled-components';
 
 import ColorPicker from '~/components/ColorPicker';
 import useCanvasContext from '~/context/useCanvasContext';
 import useCanvasBackgroundColor from '~/store/useCanvasBackgroundColor';
-import useCanvasObjects from '~/store/useCanvasObjects';
 import useCanvasWorkingSize from '~/store/useCanvasWorkingSize';
 import useDefaultParams from '~/store/useDefaultParams';
 import theme from '~/theme';
@@ -42,14 +40,8 @@ const PresetDiv = styled.div`
 
 const data = getSizePresetOptions();
 
-interface Props {
-  closeModal: () => void;
-}
-
-export default function MenuTabCanvas({ closeModal }: Props) {
+export default function MenuTabCanvas() {
   const { setCenter } = useCanvasContext();
-
-  const resetCanvasObjects = useCanvasObjects((state) => state.resetCanvasObjects);
 
   const defaultParams = useDefaultParams((state) => state.defaultParams);
   const setDefaultParams = useDefaultParams((state) => state.setDefaultParams);
@@ -143,19 +135,6 @@ export default function MenuTabCanvas({ closeModal }: Props) {
           }}
         />
       </BackgroundColorDiv>
-      {/* <H4>Reset Canvas</H4>
-      <Button
-        size="xs"
-        variant="default"
-        leftIcon={<TbTrashX />}
-        onClick={() => {
-          resetCanvasObjects();
-          setCenter();
-          closeModal();
-        }}
-      >
-        Reset
-      </Button> */}
     </>
   );
 }

@@ -14,7 +14,7 @@
     "eslint:lint": "next lint",
     "prettier:format": "prettier --write .",
     "check": "npm run eslint:lint && npm run prettier:format",
-    "dev": "concurrently \"npm run next:dev\" \"npm run functions:dev\"",
+    "dev": "concurrently \"npm run next:dev\"",
     "build": "npm run next:build && npm run next:export",
     "preview": "npm run build && npm run functions:dev"
   },
@@ -30,7 +30,6 @@
     "canvas-txt": "3.0.0",
     "lodash": "4.17.21",
     "next": "13.2.4",
-    "nextjs-google-analytics": "2.3.3",
     "nookies": "2.5.2",
     "react": "18.2.0",
     "react-color": "2.19.3",

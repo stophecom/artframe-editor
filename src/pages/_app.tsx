@@ -5,7 +5,6 @@ import { NavigationProgress, nprogress } from '@mantine/nprogress';
 import type { AppProps } from 'next/app';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
-import { GoogleAnalytics } from 'nextjs-google-analytics';
 import React, { useEffect, useState } from 'react';
 
 import '~/theme/styles/global.css';
@@ -132,8 +131,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
         {/* Social */}
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={`@${metadata.social.twitter}`} />
-        <meta name="twitter:creator" content={`@${metadata.social.twitter}`} />
       </NextHead>
       <GlobalStyle />
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
@@ -152,11 +149,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
           </CanvasContextProvider>
         </ColorSchemeContextProvider>
       </ColorSchemeProvider>
-      <GoogleAnalytics
-        gaMeasurementId={metadata.services.googleAnalyticsMeasurementId}
-        strategy="afterInteractive"
-        trackPageViews
-      />
     </>
   );
 }

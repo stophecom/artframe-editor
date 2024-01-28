@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   // Write file to file system
   fs.writeFile('image.png', base64Image, { encoding: 'base64' }, function (err) {
     console.log('File created');
+    console.log(err);
   });
 
   res.status(200).json({ message: 'Hello from Next.js!' });
