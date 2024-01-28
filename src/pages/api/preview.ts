@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       if (pngFiles.length) {
         // Select first file
-        const filePath = pngFiles[0];
+        const filePath = pngFiles[pngFiles.length - 1];
         const imageBuffer = fs.readFileSync(path.join(temporaryDirectory, filePath));
 
         res.setHeader('Content-Type', 'image/png');

@@ -4,16 +4,23 @@ import { FaArrowRight, FaPlus, FaMinus } from 'react-icons/fa';
 import { IoLocateSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 
-import { CANVAS_CONTROLS_OVERLAY } from '~/config/globalElementIds';
+import CanvasPreview from '~/components/CanvasPreview';
+import { CANVAS_PREVIEW_UNIQUE_ID } from '~/config/globalElementIds';
 import useCanvasContext from '~/context/useCanvasContext';
 import useZoom from '~/store/useZoom';
 import theme from '~/theme';
+
+// Hidden as a workaround. Eventually we could show a brief dialog with the preview.
+const CanvasWrapper = styled.div`
+  width: 200px;
+  visibility: hidden;
+`;
 
 const Wrapper = styled.div`
   pointer-events: auto;
   display: grid;
   row-gap: ${theme.variables.overlayItemsGutter};
-  grid-template-rows: min-content min-content;
+  grid-template-rows: min-content min-content min-content;
 `;
 
 const Ul = styled.ul`
@@ -35,7 +42,7 @@ const Ul = styled.ul`
 `;
 
 const downloadCanvas = async () => {
-  const canvas = document.getElementById(CANVAS_CONTROLS_OVERLAY) as HTMLCanvasElement;
+  const canvas = document.getElementById(CANVAS_PREVIEW_UNIQUE_ID) as HTMLCanvasElement;
   const image = canvas.toDataURL();
 
   // Send image to API
@@ -56,17 +63,19 @@ export default function OverlayZoom() {
 
   return (
     <Wrapper>
-      <Tooltip position="top" label="Reset position" offset={8}>
-        <Button
-          variant="default"
-          onClick={() => {
-            downloadCanvas();
-          }}
-          leftIcon={<FaArrowRight />}
-        >
-          Send to ArtFrame
-        </Button>
-      </Tooltip>
+      <CanvasWrapper>
+        <CanvasPreview />
+      </CanvasWrapper>
+      <Button
+        variant="default"
+        onClick={() => {
+          downloadCanvas();
+        }}
+        leftIcon={<FaArrowRight />}
+      >
+        Send to ArtFrame
+      </Button>
+
       <Ul>
         <li>
           <Tooltip position="top" label="Reset position" offset={8}>
