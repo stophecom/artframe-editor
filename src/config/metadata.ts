@@ -1,14 +1,14 @@
 import packageJson from '~/../package.json';
 
-const cleanUrl = 'stophe.com';
+const cleanUrl = 'artframe.stophe.com';
 
 const metadata = {
   website: {
     name: 'ArtFrame Editor',
     slogan: 'Editor for Framelabs ArtFrames',
     description: 'Open-source canvas drawing web application, built with TypeScript, React, and Next.js.',
-    cleanUrl,
-    email: `hello@${cleanUrl}`,
+    cleanUrl: cleanUrl,
+    email: `x@stophe.com`,
     url: `https://${cleanUrl}`,
     manifest: `https://${cleanUrl}/manifest.json`,
     thumbnail: `https://${cleanUrl}/images/thumbnail.jpg`,
