@@ -27,9 +27,9 @@ const LogoImg = styled.img`
 export default function LoadingOverlay() {
   return (
     <Div>
-      <LogoImg src="/images/logo/logo-dark.png" alt={`${metadata.website.name} logo`} />
+      <LogoImg src="/images/logo/logo-dark.svg" alt={`${metadata.website.name} logo`} />
       <div>
-        <Loader />
+        <Loader color="pink" />
       </div>
     </Div>
   );
