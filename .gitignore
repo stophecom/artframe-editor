@@ -10,8 +10,9 @@
 .next
 
 # Environment Variables
-.env
+.env*
 .dev.vars
+*.http
 
 # TypeScript
 *.tsbuildinfo
