@@ -13,30 +13,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.send('No tmp folder.');
   }
 
+  const files = fs.readdirSync(temporaryDirectory);
   const pngFiles: string[] = [];
-
-  fs.readdir(temporaryDirectory, (err, files) => {
-    if (err) console.log(err);
-    else {
-      console.log('\nCurrent directory filenames:');
-
-      files.forEach((file) => {
-        if (path.extname(file) == '.png') {
-          console.log(file);
-          pngFiles.push(file);
-        }
-      });
-
-      if (pngFiles.length) {
-        // Select first file
-        const filePath = pngFiles[pngFiles.length - 1];
-        const imageBuffer = fs.readFileSync(path.join(temporaryDirectory, filePath));
-
-        res.setHeader('Content-Type', 'image/png');
-        return res.send(imageBuffer);
-      } else {
-        return res.send('No file so preview');
-      }
+  files.forEach((file) => {
+    if (path.extname(file) == '.png') {
+      pngFiles.push(file);
     }
   });
+
+  if (pngFiles.length) {
+    // Select last file
+    const filePath = pngFiles[pngFiles.length - 1];
+    const imageBuffer = fs.readFileSync(path.join(temporaryDirectory, filePath));
+
+    res.setHeader('Content-Type', 'image/png');
+    return res.send(imageBuffer);
+  } else {
+    return res.send('No file so preview');
+  }
 }

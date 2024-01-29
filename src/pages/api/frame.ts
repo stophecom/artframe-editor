@@ -16,10 +16,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (!fs.existsSync(temporaryDirectory)) {
     throw Error('No tmp folder found.');
   }
-  const files = fs.readdirSync(temporaryDirectory);
 
-  // Select first file
-  const filePath = files[0];
+  const files = fs.readdirSync(temporaryDirectory);
+  const pngFiles: string[] = [];
+
+  files.forEach((file) => {
+    if (path.extname(file) == '.png') {
+      pngFiles.push(file);
+    }
+  });
+
+  if (!pngFiles.length) {
+    throw Error('No PNG files found.');
+  }
+
+  // Select last file
+  const filePath = pngFiles[pngFiles.length - 1];
 
   const imageBuffer = fs.readFileSync(path.join(temporaryDirectory, filePath));
   const sharpImage = sharp(imageBuffer);
