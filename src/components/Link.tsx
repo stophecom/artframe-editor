@@ -39,7 +39,7 @@ export default function Link({ children, as, href, title, onClick = () => undefi
       {children}
     </A>
   ) : (
-    <NextLink as={as} href={href} passHref scroll>
+    <NextLink as={as} href={href} passHref scroll legacyBehavior>
       <A aria-label={title} title={title} onClick={onClick} {...rest}>
         {children}
       </A>

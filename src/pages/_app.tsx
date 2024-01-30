@@ -5,6 +5,7 @@ import { NavigationProgress, nprogress } from '@mantine/nprogress';
 import type { AppProps } from 'next/app';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
+import { SessionProvider } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 
 import '~/theme/styles/global.css';
@@ -89,7 +90,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
   const pageUrl = `${metadata.website.url}${router.asPath}`;
 
   return (
-    <>
+    <SessionProvider session={pageProps.session}>
       <NextHead>
         <meta charSet="utf-8" />
         <meta
@@ -149,6 +150,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
           </CanvasContextProvider>
         </ColorSchemeContextProvider>
       </ColorSchemeProvider>
-    </>
+    </SessionProvider>
   );
 }
