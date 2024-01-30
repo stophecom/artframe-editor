@@ -8,7 +8,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist && rm -rf out && rm -rf node_modules",
-    "postinstall": "node -r esm scripts/postinstall.ts",
+    "postinstall": "node -r esm scripts/postinstall.ts && prisma generate",
     "next:dev": "next dev",
     "next:build": "next build",
     "next:export": "next export",
