@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Image {
+  id          String    @id @default(cuid())
+  path        String
+  scheduledAt DateTime?
+  frame       Frame?    @relation(fields: [frameId], references: [id])
+  frameId     String?
+}
+
+model Frame {
+  id          String       @id @default(cuid())
+  name        String?
+  description String?
+  endpointId  String
+  username    String
+  password    String
+  variant     FrameVariant @default(SIX_INCH_HD)
+  orientation Orientation  @default(LANDSCAPE)
+  owner       User?        @relation(fields: [ownerId], references: [id])
+  ownerId     String?      @map("ownerId")
+  images      Image[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?  @unique
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  frame     Frame[]
+
+  @@map(name: "users")
+}
+
+enum Orientation {
+  LANDSCAPE
+  PORTRAIT
+}
+
+enum FrameVariant {
+  SIX_INCH_HD
+  NINE_POINT_SEVEN_INCH
+  THIRTEEN_POINT_THREE_INCH
+  THIRTYONE_POINT_TWO_INCH
+}
