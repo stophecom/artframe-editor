@@ -1,7 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-
+import { put } from '@vercel/blob';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
+
+import { authOptions } from './auth/[...nextauth]';
+import prisma from '../../../lib/prisma';
 
 type ResponseData = {
   message: string;
@@ -16,27 +18,51 @@ export const config = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  const image = await req.body;
+  const session = await getServerSession(req, res, authOptions);
 
-  // const temporaryDirectory = path.join(__dirname, 'tmp');
-  const temporaryDirectory = '/tmp';
-
-  // On Vercel we can create a temporary folder to store images.
-  // Should be replaced with an object storage solution. E.g. AWS S3
-  fs.mkdir(temporaryDirectory, { recursive: true }, (err) => {
-    if (err) throw err;
-    console.log('Temporary folder created.');
+  const frames = await prisma.frame.findMany({
+    include: {
+      owner: {
+        select: { name: true },
+      },
+    },
   });
 
-  const imagePath = path.join(temporaryDirectory, `${Date.now()}.png`);
+  console.log(frames);
 
-  // Remove header
-  const base64Image = image.split(';base64,').pop();
-  // Write file to file system
-  fs.writeFile(imagePath, base64Image, { encoding: 'base64' }, function (err) {
-    console.log('File saved to temporary folder: ', temporaryDirectory);
-    if (err) throw err;
-  });
+  if (session) {
+    // Signed in
+    console.log('Session', JSON.stringify(session, null, 2));
 
-  res.status(200).json({ message: 'File saved to temporary folder.' });
+    // Save image to Vercel Blob
+    const image = await req.body;
+    const base64Image = image.split(';base64,').pop();
+
+    const blob = await put(`${Date.now()}.png`, Buffer.from(base64Image, 'base64'), {
+      access: 'public',
+    });
+
+    console.log(blob);
+
+    const scheduledDate = new Date();
+    scheduledDate.setHours(scheduledDate.getHours() + 2);
+
+    // Save image data in DB
+    const result = await prisma.image.create({
+      data: {
+        pathname: blob.pathname,
+        contentType: blob.contentType,
+        url: blob.url,
+        scheduledAt: scheduledDate,
+        frame: { connect: { id: 'cls29h5yo0000kob5vnthcmq4' } },
+      },
+    });
+
+    console.log(result);
+  } else {
+    // Not Signed in
+    // res.status(401)
+  }
+
+  res.status(200).json({ message: 'File saved.' });
 }

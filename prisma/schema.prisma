@@ -10,7 +10,9 @@ datasource db {
 
 model Image {
   id          String    @id @default(cuid())
-  path        String
+  pathname    String
+  url         String
+  contentType String
   scheduledAt DateTime?
   frame       Frame?    @relation(fields: [frameId], references: [id])
   frameId     String?
