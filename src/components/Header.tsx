@@ -2,8 +2,30 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
+import styled from 'styled-components';
 
-const Header: React.FC = () => {
+export const Grid = styled.nav`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
+export type FrameProps = {
+  id: string;
+  name?: string;
+  description?: string;
+  owner: {
+    name: string;
+    email: string;
+  } | null;
+  variant: string;
+  orientation: boolean;
+};
+
+type HeaderProps = {
+  frames: FrameProps[];
+};
+
+const Header: React.FC<HeaderProps> = ({ frames }) => {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) => router.pathname === pathname;
 
@@ -12,67 +34,17 @@ const Header: React.FC = () => {
   let left = (
     <div className="left">
       <Link href="/" className="bold" data-active={isActive('/')} legacyBehavior>
-        Feed
+        Home
       </Link>
-      <style jsx>{`
-        .bold {
-          font-weight: bold;
-        }
-
-        a {
-          text-decoration: none;
-          color: var(--geist-foreground);
-          display: inline-block;
-        }
-
-        .left a[data-active='true'] {
-          color: gray;
-        }
-
-        a + a {
-          margin-left: 1rem;
-        }
-      `}</style>
     </div>
   );
 
   let right = null;
 
   if (status === 'loading') {
-    left = (
-      <div className="left">
-        <Link href="/" className="bold" data-active={isActive('/')}>
-          Feed
-        </Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active='true'] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
-      </div>
-    );
     right = (
       <div className="right">
         <p>Validating session ...</p>
-        <style jsx>{`
-          .right {
-            margin-left: auto;
-          }
-        `}</style>
       </div>
     );
   }
@@ -83,27 +55,6 @@ const Header: React.FC = () => {
         <Link href="/api/auth/signin" data-active={isActive('/signup')}>
           Log in
         </Link>
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-        `}</style>
       </div>
     );
   }
@@ -111,33 +62,12 @@ const Header: React.FC = () => {
   if (session) {
     left = (
       <div className="left">
-        <Link href="/" legacyBehavior>
-          <a className="bold" data-active={isActive('/')}>
-            Feed
-          </a>
-        </Link>
-        <Link href="/drafts" legacyBehavior>
-          <a data-active={isActive('/drafts')}>My drafts</a>
-        </Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active='true'] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
+        {frames.map((frame) => (
+          <div key={frame.id}>
+            {frame.variant}
+            {frame.id}
+          </div>
+        ))}
       </div>
     );
     right = (
@@ -147,59 +77,21 @@ const Header: React.FC = () => {
         </p>
         <Link href="/create" legacyBehavior>
           <button>
-            <a>New post</a>
+            <a>New Frame</a>
           </button>
         </Link>
         <button onClick={() => signOut()}>
           <a>Log out</a>
         </button>
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          p {
-            display: inline-block;
-            font-size: 13px;
-            padding-right: 1rem;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-
-          button {
-            border: none;
-          }
-        `}</style>
       </div>
     );
   }
 
   return (
-    <nav>
+    <Grid>
       {left}
       {right}
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
-      `}</style>
-    </nav>
+    </Grid>
   );
 };
 

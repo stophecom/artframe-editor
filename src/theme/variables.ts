@@ -1,3 +1,4 @@
+export const headerHeight = '60px';
 export const topNavbarHeight = '44px';
 
 export const sidebarWidth = '277px';

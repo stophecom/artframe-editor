@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       // User not signed in
       if (!session) {
-        res.status(401).send({ message: 'Unauthorized' });
+        return res.status(401).send({ message: 'Unauthorized' });
       }
 
       console.log('Session', JSON.stringify(session, null, 2));
@@ -64,11 +64,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       console.log(result);
 
-      res.status(200).json({ message: 'File saved.' });
-      break;
+      return res.status(200).json({ message: 'File saved.' });
     }
     default: {
-      res.status(405).send({ message: 'Method not allowed' });
+      return res.status(405).send({ message: 'Method not allowed' });
     }
   }
 }

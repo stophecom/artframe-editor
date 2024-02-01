@@ -3,7 +3,6 @@ import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import styled from 'styled-components';
 
-import Header from '~/components/Header';
 import useModalContext from '~/context/useModalContext';
 import useActiveObjectId from '~/store/useActiveObjectId';
 
@@ -21,7 +20,6 @@ export default function OverlayMenu() {
 
   return (
     <WrapperDiv>
-      <Header />
       <Menu shadow="md" width={200} position="bottom-end">
         <Menu.Target>
           <Tooltip position="bottom-end" label="Open menu" offset={16}>
