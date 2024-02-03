@@ -10,6 +10,7 @@ import { menuTabsDefinition, type MenuTabId } from './menuTabsDefinition';
 import MenuTabAbout from './tabs/MenuTabAbout';
 import MenuTabCanvas from './tabs/MenuTabCanvas';
 import MenuTabDownload from './tabs/MenuTabDownload';
+import MenuTabFrames from './tabs/MenuTabFrames';
 import MenuTabLayers from './tabs/MenuTabLayers';
 import MenuTabSettings from './tabs/MenuTabSettings';
 
@@ -63,6 +64,11 @@ export default function MenuTabs({ initialTab = menuTabsDefinition[0].id }: Prop
             </Tabs.Tab>
           ))}
         </Tabs.List>
+        <Tabs.Panel value="frames">
+          <PanelContentDiv>
+            <MenuTabFrames />
+          </PanelContentDiv>
+        </Tabs.Panel>
         <Tabs.Panel value="canvas">
           <PanelContentDiv>
             <MenuTabCanvas />

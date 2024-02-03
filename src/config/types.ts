@@ -138,3 +138,18 @@ export type ColorPickerType =
   | 'SliderPicker'
   | 'SwatchesPicker'
   | 'TwitterPicker';
+
+export type Frame = {
+  id: string;
+  name?: string;
+  description?: string;
+  owner: {
+    name: string;
+    email: string;
+  } | null;
+  endpointId: string;
+  username: string;
+  password: string;
+  variant: 'SIX_INCH_HD' | 'NINE_POINT_SEVEN_INCH' | 'THIRTEEN_POINT_THREE_INCH' | 'THIRTYONE_POINT_TWO_INCH';
+  orientation: 'LANDSCAPE' | 'PORTRAIT';
+};

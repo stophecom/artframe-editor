@@ -10,7 +10,7 @@ import theme from '~/theme';
 const FixedDiv = styled.div`
   pointer-events: none;
   position: fixed;
-  top: calc(${theme.variables.headerHeight} + ${theme.variables.overlayGutter} + ${theme.variables.overlayGutter});
+  top: ${theme.variables.overlayGutter};
   bottom: ${theme.variables.overlayGutter};
   left: ${theme.variables.overlayGutter};
   right: ${theme.variables.overlayGutter};

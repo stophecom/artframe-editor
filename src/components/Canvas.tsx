@@ -461,7 +461,7 @@ export default function Canvas() {
           backgroundColor: 'white',
         }}
       >
-        <h1
+        <div
           style={{
             position: 'absolute',
             top: `${-38 / (zoom / 100)}px`,
@@ -472,7 +472,7 @@ export default function Canvas() {
           }}
         >
           {`${canvasWorkingSize.width} x ${canvasWorkingSize.height} px`}
-        </h1>
+        </div>
         <canvas ref={canvasRef} width={canvasWorkingSize.width} height={canvasWorkingSize.height} />
       </div>
     </FixedMain>
