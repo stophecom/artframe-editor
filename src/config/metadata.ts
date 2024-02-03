@@ -5,8 +5,8 @@ const cleanUrl = 'artframe.stophe.com';
 const metadata = {
   website: {
     name: 'ArtFrame Editor',
-    slogan: 'Editor for Framelabs ArtFrames',
-    description: 'Open-source canvas drawing web application, built with TypeScript, React, and Next.js.',
+    slogan: `Editor for Framelab's ArtFrame`,
+    description: `Editor for Framelab's ArtFrame. Open-source canvas drawing web application, built with TypeScript, React, and Next.js.`,
     cleanUrl: cleanUrl,
     email: `x@stophe.com`,
     url: `https://${cleanUrl}`,
