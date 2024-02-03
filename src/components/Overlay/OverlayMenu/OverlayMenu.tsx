@@ -3,7 +3,6 @@ import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { MdOutlineLogout, MdPerson } from 'react-icons/md';
-
 import styled from 'styled-components';
 
 import useModalContext from '~/context/useModalContext';
