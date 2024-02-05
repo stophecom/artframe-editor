@@ -12,8 +12,7 @@ import prisma from '../../lib/prisma';
 type PageIndexProps = FramesState;
 
 const Page: React.FC<PageIndexProps> = ({ frames }) => {
-  const counterStore = useStoreSync(useFrames, { frames })();
-  console.log(counterStore.frames);
+  useStoreSync(useFrames, { frames })();
 
   return (
     <>

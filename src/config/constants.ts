@@ -15,3 +15,10 @@ export const COLOR_PICKERS: ColorPickerType[] = [
   'PhotoshopPicker',
   'HuePicker',
 ];
+
+const isProduction = process.env.VERCEL_ENV === 'production';
+// const isDevelopment = process.env.VERCEL_ENV === 'development';
+// const isPreview = process.env.VERCEL_ENV === 'preview';
+
+export const BASE_PATH = isProduction ? 'artframe.stophe.com' : process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost:3000';
+export const HOST = isProduction ? 'https://' : 'http://';

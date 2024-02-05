@@ -10,7 +10,8 @@ import { authOptions } from '../auth/[...nextauth]';
 type ResponseData = Buffer | string; // We send compressed image data
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  const id = req.query.id as string;
+  const endpointId = req.query.endpointId as string;
+
   const session = await getServerSession(req, res, authOptions);
 
   // Preview Mode for debugging. It will display the image to be shown.
@@ -24,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     case 'GET': {
       const frameByEndpointId = await prisma.frame.findFirst({
         where: {
-          endpointId: id,
+          endpointId: endpointId,
         },
       });
 
@@ -102,6 +103,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       res.setHeader('Height', height);
       res.setHeader('Cache-Control', `max-age=${sleep_time}`);
       return res.send(compressed);
+    }
+
+    case 'DELETE': {
+      await prisma.frame.delete({
+        where: {
+          id: endpointId,
+        },
+      });
+      return res.send('Frame deleted');
     }
   }
 }
