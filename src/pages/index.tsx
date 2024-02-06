@@ -1,4 +1,4 @@
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import React from 'react';
 
 import PageSEO from '~/components/PageSEO';
@@ -22,7 +22,7 @@ const Page: React.FC<PageIndexProps> = ({ frames }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const frames = await prisma.frame.findMany({
     include: {
       owner: {
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   return {
     props: { frames },
-    revalidate: 10,
+    // revalidate: 10,
   };
 };
 
