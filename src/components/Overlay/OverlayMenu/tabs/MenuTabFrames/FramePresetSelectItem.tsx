@@ -1,6 +1,6 @@
 import { Group, Text } from '@mantine/core';
 import React, { forwardRef, type ComponentPropsWithoutRef } from 'react';
-import { BiLandscape } from 'react-icons/bi';
+import { FaImage } from 'react-icons/fa';
 
 export interface FramePresetOption {
   label: string;
@@ -18,7 +18,7 @@ const FrameSizePresetSelectItem = forwardRef<HTMLDivElement, Props>(({ label, wi
   <div ref={ref} {...rest}>
     <Group noWrap>
       <div>
-        <BiLandscape {...common} />
+        <FaImage {...common} />
       </div>
       <div>
         <Text size="sm">{label}</Text>

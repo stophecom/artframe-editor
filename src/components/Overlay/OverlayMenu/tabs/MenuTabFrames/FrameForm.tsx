@@ -1,10 +1,9 @@
-import { TextInput, Select, SegmentedControl, Button, LoadingOverlay, Box, Flex } from '@mantine/core';
+import { TextInput, Input, Select, SegmentedControl, Button, LoadingOverlay, Box, Flex } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { pick } from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 
 import { Frame } from '~/config/types';
 import artframePresets, { FrameSelectItem } from '~/data/artframePresets';
@@ -28,17 +27,6 @@ function getFramePresetOptions(): FrameSelectItemOption[] {
 
   return options;
 }
-
-const SegmentedControlWrapper = styled.div`
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-`;
-
-const SegmentedControlLabel = styled.div`
-  font-size: 0.875rem;
-  font-weight: 500;
-`;
 
 type FormValues = Pick<Frame, 'name' | 'description' | 'variant' | 'orientation'>;
 
@@ -107,8 +95,9 @@ export const FrameForm: React.FC<Props> = ({ frame, onSubmit }) => {
             }
           })}
         >
-          <TextInput withAsterisk label="Name" placeholder="Frame 1" {...form.getInputProps('name')} />
+          <TextInput mb={'sm'} withAsterisk label="Name" placeholder="Frame 1" {...form.getInputProps('name')} />
           <Select
+            mb={'sm'}
             variant="default"
             size="sm"
             label="ArtFrame"
@@ -122,16 +111,17 @@ export const FrameForm: React.FC<Props> = ({ frame, onSubmit }) => {
             {...form.getInputProps('variant')}
           />
 
-          <SegmentedControlWrapper>
-            <SegmentedControlLabel>Orientation</SegmentedControlLabel>
-            <SegmentedControl
-              data={[
-                { label: 'Landscape', value: 'LANDSCAPE' },
-                { label: 'Portrait', value: 'PORTRAIT' },
-              ]}
-              {...form.getInputProps('orientation')}
-            />
-          </SegmentedControlWrapper>
+          <Input.Wrapper label="Orientation" mb={'sm'}>
+            <div>
+              <SegmentedControl
+                data={[
+                  { label: 'Landscape', value: 'LANDSCAPE' },
+                  { label: 'Portrait', value: 'PORTRAIT' },
+                ]}
+                {...form.getInputProps('orientation')}
+              />
+            </div>
+          </Input.Wrapper>
 
           <TextInput label="Description" placeholder="Frame in living room." {...form.getInputProps('description')} />
 

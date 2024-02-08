@@ -1,4 +1,4 @@
-import { TextInput, Button, Accordion, Box, Divider, Grid } from '@mantine/core';
+import { TextInput, Input, Button, Accordion, Box, Divider, Grid } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -57,13 +57,9 @@ export const FramesAccordion = () => {
                   </Box>
                   <Divider></Divider>
                   <Box mb={3} p={4}>
-                    <TextInput
-                      mb={'sm'}
-                      disabled
-                      label="Endpoint URL"
-                      value={endpointURL}
-                      rightSection={<ButtonCopy value={endpointURL} />}
-                    />
+                    <Input.Wrapper label="Endpoint URL" mb={'sm'} description={'Copy and past this to your ArtFrame.'}>
+                      <TextInput mt={'xs'} mb={'sm'} value={endpointURL} rightSection={<ButtonCopy value={endpointURL} />} />
+                    </Input.Wrapper>
                     <Grid justify="space-between">
                       <Grid.Col span={'auto'}>
                         <Button
