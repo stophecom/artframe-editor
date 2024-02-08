@@ -58,7 +58,13 @@ export const FramesAccordion = () => {
                   <Divider></Divider>
                   <Box mb={3} p={4}>
                     <Input.Wrapper label="Endpoint URL" mb={'sm'} description={'Copy and past this to your ArtFrame.'}>
-                      <TextInput mt={'xs'} mb={'sm'} value={endpointURL} rightSection={<ButtonCopy value={endpointURL} />} />
+                      <TextInput
+                        readOnly
+                        mt={'xs'}
+                        mb={'sm'}
+                        value={endpointURL}
+                        rightSection={<ButtonCopy value={endpointURL} />}
+                      />
                     </Input.Wrapper>
                     <Grid justify="space-between">
                       <Grid.Col span={'auto'}>
