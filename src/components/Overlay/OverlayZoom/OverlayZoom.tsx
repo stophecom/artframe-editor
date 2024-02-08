@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import CanvasPreview from '~/components/CanvasPreview';
 import { CANVAS_PREVIEW_UNIQUE_ID } from '~/config/globalElementIds';
 import useCanvasContext from '~/context/useCanvasContext';
+import useFrames from '~/store/useFrames';
 import useZoom from '~/store/useZoom';
 import theme from '~/theme';
 
@@ -41,12 +42,12 @@ const Ul = styled.ul`
   }
 `;
 
-const downloadCanvas = async () => {
+const storeImage = async (id: string) => {
   const canvas = document.getElementById(CANVAS_PREVIEW_UNIQUE_ID) as HTMLCanvasElement;
   const image = canvas.toDataURL();
 
   // Send image to API
-  const response = await fetch('/api/images', {
+  const response = await fetch(`/api/frames/${id}/images`, {
     method: 'POST',
     body: JSON.stringify(image),
   });
@@ -56,6 +57,7 @@ const downloadCanvas = async () => {
 
 export default function OverlayZoom() {
   const { setCenter } = useCanvasContext();
+  const currentFrame = useFrames((state) => state.currentFrame);
 
   const zoom = useZoom((state) => state.zoom);
   const incrementZoom = useZoom((state) => state.incrementZoom);
@@ -69,7 +71,11 @@ export default function OverlayZoom() {
       <Button
         variant="default"
         onClick={() => {
-          downloadCanvas();
+          if (!currentFrame) {
+            console.error('No frame selected');
+            return;
+          }
+          storeImage(currentFrame.id);
         }}
         leftIcon={<FaArrowRight />}
       >

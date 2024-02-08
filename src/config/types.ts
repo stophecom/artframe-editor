@@ -147,6 +147,9 @@ export type Frame = {
     name: string;
     email: string;
   } | null;
+  images: {
+    url: string;
+  }[];
   endpointId: string;
   username: string;
   password: string;

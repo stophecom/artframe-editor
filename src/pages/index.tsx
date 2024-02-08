@@ -32,6 +32,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
       owner: {
         select: { name: true },
       },
+      images: {
+        select: { url: true },
+      },
     },
   });
   return {

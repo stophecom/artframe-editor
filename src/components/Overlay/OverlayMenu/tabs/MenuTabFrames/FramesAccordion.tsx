@@ -29,8 +29,8 @@ export const FramesAccordion = () => {
 
   return (
     <Accordion chevronPosition="right" variant="contained" mb={'xl'}>
-      {frames.map(({ id, name, description, orientation, variant, password, username, endpointId }) => {
-        const endpointURL = `${HOST}${username}:${password}@${BASE_PATH}/${endpointId}/`;
+      {frames.map(({ id, images, name, description, orientation, variant, password, username, endpointId }) => {
+        const endpointURL = `${HOST}${username}:${password}@${BASE_PATH}/api/frames/endpoint/${endpointId}/`;
         return (
           <Accordion.Item value={id} key={id}>
             <Accordion.Control disabled={editItem === id} onClick={() => setEditItem(null)}>
@@ -43,6 +43,9 @@ export const FramesAccordion = () => {
                     <small>
                       ArtFrame {artframePresets[variant].label} ({orientationPresets[orientation]})
                     </small>
+                  </div>
+                  <div>
+                    <small>Images: {images.length} </small>
                   </div>
                 </>
               )}
