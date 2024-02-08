@@ -1,10 +1,11 @@
 import { ActionIcon, Menu, Tooltip } from '@mantine/core';
 import { signOut, useSession } from 'next-auth/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { MdOutlineLogout, MdPerson } from 'react-icons/md';
 import styled from 'styled-components';
 
+import { FramesSwitcher } from '~/components/Canvas/FrameSwitcher';
 import useModalContext from '~/context/useModalContext';
 import useActiveObjectId from '~/store/useActiveObjectId';
 
@@ -24,9 +25,11 @@ export default function OverlayMenu() {
 
   const { data: session } = useSession();
 
+  const [opened, setOpened] = useState(false);
+
   return (
     <WrapperDiv>
-      <Menu shadow="md" width={200} position="bottom-end">
+      <Menu shadow="md" width={200} position="bottom-end" opened={opened} onChange={setOpened}>
         <Menu.Target>
           <Tooltip position="bottom-end" label="Open menu" offset={16}>
             <ActionIcon title="Profile" variant="default" size="xl">
@@ -34,7 +37,8 @@ export default function OverlayMenu() {
             </ActionIcon>
           </Tooltip>
         </Menu.Target>
-        <Menu.Dropdown>
+        <Menu.Dropdown p={'sm'}>
+          <FramesSwitcher onSelect={() => setOpened(false)} />
           {session ? (
             <Menu.Item icon={<MdPerson />}>{session?.user?.name}</Menu.Item>
           ) : (

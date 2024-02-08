@@ -467,6 +467,7 @@ export default function Canvas() {
             top: `${-38 / (zoom / 100)}px`,
             left: '0',
             width: `${Number.MAX_SAFE_INTEGER}px`,
+            pointerEvents: 'initial',
             color: 'white',
             fontSize: `${20 / (zoom / 100)}px`,
           }}
