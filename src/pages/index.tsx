@@ -1,18 +1,22 @@
 import type { GetServerSideProps } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import PageSEO from '~/components/PageSEO';
-import { useStoreSync } from '~/hooks/useStoreSync';
 import AppLayout from '~/layouts/AppLayout';
 import useFrames from '~/store/useFrames';
-import type { FramesState } from '~/store/useFrames';
+import type { State } from '~/store/useFrames';
 
 import prisma from '../../lib/prisma';
 
-type PageIndexProps = FramesState;
+type PageIndexProps = State;
 
 const Page: React.FC<PageIndexProps> = ({ frames }) => {
-  useStoreSync(useFrames, { frames })();
+  const setFrames = useFrames((state) => state.setFrames);
+
+  useEffect(() => {
+    // We update the store whenever getServerSideProps re-evaluates
+    setFrames(frames);
+  }, [frames]);
 
   return (
     <>
@@ -32,7 +36,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   });
   return {
     props: { frames },
-    // revalidate: 10,
   };
 };
 

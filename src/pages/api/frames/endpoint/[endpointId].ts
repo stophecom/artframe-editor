@@ -4,8 +4,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import sharp from 'sharp';
 
-import prisma from '../../../../lib/prisma';
-import { authOptions } from '../auth/[...nextauth]';
+import prisma from '../../../../../lib/prisma';
+import { authOptions } from '../../auth/[...nextauth]';
 
 type ResponseData = Buffer | string; // We send compressed image data
 

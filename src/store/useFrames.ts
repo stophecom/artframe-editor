@@ -2,12 +2,17 @@ import { create } from 'zustand';
 
 import type { Frame } from '~/config/types';
 
-export interface FramesState {
+export interface State {
   frames: Frame[];
 }
 
-export const useFrames = create<FramesState>(() => ({
+interface Actions {
+  setFrames: (state: State['frames']) => void;
+}
+
+export const useFrames = create<State & Actions>((set) => ({
   frames: [],
+  setFrames: (state) => set(() => ({ frames: state })),
 }));
 
 export default useFrames;

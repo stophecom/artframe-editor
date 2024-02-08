@@ -141,7 +141,7 @@ export type ColorPickerType =
 
 export type Frame = {
   id: string;
-  name?: string;
+  name: string;
   description?: string;
   owner: {
     name: string;

@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 
-import prisma from '../../../../../lib/prisma';
-import { authOptions } from '../../auth/[...nextauth]';
+import prisma from '../../../../lib/prisma';
+import { authOptions } from '../auth/[...nextauth]';
 
 type ResponseData = Buffer | string; // We send compressed image data
 
@@ -17,6 +17,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   switch (req.method) {
+    case 'POST': {
+      const { name, description, variant, orientation } = req.body;
+
+      await prisma.frame.update({
+        where: { id: id },
+        data: {
+          name,
+          description,
+          variant,
+          orientation,
+        },
+      });
+      return res.send('Frame updated');
+    }
+
     case 'DELETE': {
       await prisma.frame.delete({
         where: {
